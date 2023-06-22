@@ -1,7 +1,7 @@
 import { useLoto } from "../../store/useLoto";
 
 export default function Games() {
-  const { games, total } = useLoto();
+  const { games, total, handleDeleteGame, setTotal } = useLoto();
 
   return (
     <div className="bg-gray-100 border-l border-gray-300 md:col-span-4">
@@ -45,7 +45,7 @@ export default function Games() {
                 <div
                   className="absolute right-3 cursor-pointer"
                   onClick={() => {
-                    // handleDeleteGame(games[i]);
+                    handleDeleteGame(game);
                   }}
                 >
                   <svg

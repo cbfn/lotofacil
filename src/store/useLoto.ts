@@ -44,6 +44,7 @@ export const useLoto = create<ILoto>((set, get) => ({
         total: state.total + calcGameValue(get().games),
       }));
     }
+    return 0;
   },
   handleSelectNumber: (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -79,12 +80,14 @@ export const useLoto = create<ILoto>((set, get) => ({
       set((state) => ({
         games: [...state.games, get().selectedNumbers],
       }));
+      get().setTotal();
     }
-    get().setTotal();
   },
   handleDeleteGame: (selectedGame: number[]) => {
-    set((state) => ({
-      games: get().games.filter((game) => !game.includes(selectedGame))
-    })
+    const newGames = get().games.filter((game) => game !== selectedGame);
+    set(() => ({
+      total: calcGameValue(newGames),
+      games: newGames,
+    }));
   },
 }));
