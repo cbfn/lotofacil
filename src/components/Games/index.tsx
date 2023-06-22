@@ -1,7 +1,7 @@
 import { useLoto } from "../../store/useLoto";
 
 export default function Games() {
-  const { games, total, handleDeleteGame, setTotal } = useLoto();
+  const { games, total, handleDeleteGame } = useLoto();
 
   return (
     <div className="bg-gray-100 border-l border-gray-300 md:col-span-4">
