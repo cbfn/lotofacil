@@ -26,7 +26,7 @@ const relations: { [k: number]: number } = {
 };
 
 const calcGameValue = (games: Array<number>[]) => {
-  const a = games.reduceRight((_prev, cur) => {
+  const a = games.reduce((_prev, cur) => {
     return relations[cur.length];
   }, 0);
   return a;
@@ -39,12 +39,9 @@ export const useLoto = create<ILoto>((set, get) => ({
   games: [],
   total: 0,
   setTotal: () => {
-    if (get().games.length > 0) {
-      set((state) => ({
-        total: state.total + calcGameValue(get().games),
-      }));
-    }
-    return 0;
+    set(() => ({
+      total: calcGameValue(get().games),
+    }));
   },
   handleSelectNumber: (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -63,6 +60,7 @@ export const useLoto = create<ILoto>((set, get) => ({
   },
   handleTotalNumberChoise: (event: React.ChangeEvent<HTMLSelectElement>) => {
     set(() => ({
+      selectedNumbers: [],
       totalNumberSelected: Number(event.target.value),
     }));
   },
@@ -86,8 +84,9 @@ export const useLoto = create<ILoto>((set, get) => ({
   handleDeleteGame: (selectedGame: number[]) => {
     const newGames = get().games.filter((game) => game !== selectedGame);
     set(() => ({
-      total: calcGameValue(newGames),
       games: newGames,
     }));
+
+    get().setTotal();
   },
 }));
