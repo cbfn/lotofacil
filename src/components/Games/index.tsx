@@ -1,21 +1,4 @@
-import { useEffect } from "react";
 import { useLoto } from "../../store/useLoto";
-
-const relations: { [k: number]: number } = {
-  15: 3,
-  16: 48,
-  17: 408,
-  18: 2448,
-  19: 11628,
-  20: 46512,
-};
-
-const calcGameValue = (games: Array<number>[]) => {
-  const a = games.reduceRight((_prev, cur) => {
-    return relations[cur.length];
-  }, 0);
-  return a;
-};
 
 export default function Games() {
   const { games, handleDeleteGame, total } = useLoto();
