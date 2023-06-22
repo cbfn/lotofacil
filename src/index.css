@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  overflow: hidden;
+}
+
+.game-content {
+  height: calc(100% - 64px);
+  overflow: auto;
+}
